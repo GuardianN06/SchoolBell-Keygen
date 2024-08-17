@@ -5,3 +5,50 @@ This repository contains a proof of concept for a key generator targeting the Sc
 The purpose of this project is to provide insights into the mechanisms of software licensing and security. It is intended strictly for educational use and not for circumventing the purchase of legitimately licensed software. Users are encouraged to respect the software’s licensing agreement and to purchase a license if they choose to use the product.
 
 A valid activation code alongside the username is found in the validuserkey.txt file to immediately activate without brute-forcing.
+
+# How it works
+
+Schoolbell transforms the key and username inputted and compares the two with a few parameters.
+
+```
+f(k) == f(n)
+```
+
+The key is sliced and gets 4 parameters taken out of it p1, p2, p3, p4.
+These are then compared against the username parameters named np1, np2, np3 and np4.
+
+For the software to activate 2 checks must be made.
+The last 2 characters of the transformed key are taken as a checksum for the rest of the key and the checksum should match the last 2 hex values of the ascii sum of the first 14 characters of the transformed key. And the second condition is for the np1-4 values to match the p1-4 values.
+
+The username is transformed to the below np1-4 values, with np3 always being 10.
+
+```
+np1 = (10 + strlen(username)) & 0xF
+np2 = (ascii_sum(username)) & 0xFF
+np3 = 10
+np4 = np2 + 39
+```
+
+Since p1-4 are key values this makes it pretty simple to brute force a key, since we only need to match the np3 and np4 values, this gives us a big windows for key generation.
+With bruteforce.py it finds keys that have the np3 as 10 and np4 as whatever np2 is + 39.
+We use checksumfix to fix the checksum at the end by iterating ascii values and we have a valid key.
+Now we produce a bunch of keys and try to find a key that matches a username. This can be automated as well but i chose not to do it.
+We can use usernametokey to check our valid key list to match any usernames we put in (i put around 1k valid keys). 
+If there's no output, that means it couldn't find a correct key for it.
+
+### An example would be the validuserkey.txt
+
+```
+Username input: CRACKED
+Key input: QWXRVWNGSGHJSNSK
+
+Transformed key: 1CDAF4BC7DEE7A75
+Checksum: 75
+
+p1=1 np1=1
+p2=205 np2=205
+p3=10 np3=10
+p4=244 np4=244
+```
+
+Some enhancements can be made to the scripts.
