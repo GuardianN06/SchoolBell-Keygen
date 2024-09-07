@@ -45,19 +45,23 @@ Now we produce a bunch of keys and try to find a key that matches a username. Th
 We can use usernametokey to check our valid key list to match any usernames we put in. 
 If there's no output, that means it couldn't find a correct key for it.
 
-### An example would be the validuserkey.txt
+### An example would be:
 
 ```
-Username input: CRACKED
-Key input: QWXRVWNGSGHJSNSK
+Enter name: GuardianN06
+Code found for username: MPSRQMYKKJQCMZPL
 
-Transformed key: 1CDAF4BC7DEE7A75
-Checksum: 75
+51FA46FBF3D0B947
+47
 
-p1=1 np1=1
-p2=205 np2=205
+key: 208.03.4031
+
+p1=5 np1=5
+p2=31 np2=31
 p3=10 np3=10
-p4=244 np4=244
+p4=70 np4=70
 ```
+
+Or with the username "CRACKED" in validuserkey.txt
 
 Some enhancements can be made to the scripts.
