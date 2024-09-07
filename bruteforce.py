@@ -2,6 +2,18 @@ import random
 import string
 import threading
 
+def find_matching_checksum(code, sqlf_code):
+    for last_char1 in string.ascii_uppercase:
+        for last_char2 in string.ascii_uppercase:
+            test_code = code[:-2] + last_char1 + last_char2
+            check1 = map_code(test_code, sqlf_code)
+            if len(check1) == 16:
+                checksum1 = calculate_checksum(check1)
+                if check1[-2:] == checksum1:
+                    print(f"{test_code}")
+                    return test_code, checksum1
+    return None, None
+
 def calculate_checksum(code):
     checksum = 0
     for char in code[:14]:
@@ -37,7 +49,15 @@ sqlf_code = [
 
 def brute_force():
     while True:
-        code = ''.join(random.choices(string.ascii_uppercase, k=16))
+        code = random.choices(string.ascii_uppercase, k=16)
+        code[3] = 'R'
+        code[6] = 'Y'
+        code[7] = 'K'
+        code[8] = 'K'
+        code[9] = 'J'
+        code[10] = 'Q'
+        code[11] = 'C'
+        code = ''.join(code)
         transformed_code = map_code(code, sqlf_code)
         if len(transformed_code) == 16:
             parsed_values = parse_hex_values(transformed_code)
@@ -45,8 +65,12 @@ def brute_force():
             p2 = parsed_values[1]
             p3 = parsed_values[2]
             p4 = parsed_values[3]
-            if p4 == (p2+39) and p3 == 10:
-                print(code)
+            if p4 == (p2+39):
+                checksum1 = calculate_checksum(code)
+                if code[-2:] != checksum1:
+                    find_matching_checksum(code, sqlf_code)
+                else:
+                    print(code)
 
 def start_threads(num_threads):
     threads = []
@@ -56,5 +80,6 @@ def start_threads(num_threads):
         threads.append(t)
     for thread in threads:
         thread.join()
+
 
 start_threads(30)
