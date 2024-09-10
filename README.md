@@ -32,9 +32,14 @@ np4 = np2 + 39
 ```
 ```
 p1 = transformed_keyinput[0]
-p2 = transformed_keyinput[1] and transformed_keyinput[2]
+
+p2 = transformed_keyinput[1]
+p2 = transformed_keyinput[2]
+
 p3 = transformed_keyinput[3]
-p4 = transformed_keyinput[4] and transformed_keyinput[5]
+
+p4 = transformed_keyinput[4]
+p4 = transformed_keyinput[5]
 ```
 
 
@@ -51,8 +56,8 @@ If there's no output, that means it couldn't find a correct key for it.
 Enter name: GuardianN06
 Code found for username: MPSRQMYKKJQCMZPL
 
-51FA46FBF3D0B947
-47
+Transformed key: 51FA46FBF3D0B947
+Checksum: 47
 
 key: 208.03.4031
 
