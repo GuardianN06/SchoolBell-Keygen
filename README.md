@@ -1,4 +1,9 @@
-# SchoolBell-Keygen
+<div align="center">
+  <h1>SchoolBell-Keygen</h1>
+  <img src="assets/slice.png" alt="slice" title="slice">
+  
+</div>
+
 
 This repository contains a proof of concept for a key generator targeting the SchoolBell application by ktims.com. SchoolBell is designed to manage school bell systems, and this key generator is an educational tool to test my skills on key generation.
 
